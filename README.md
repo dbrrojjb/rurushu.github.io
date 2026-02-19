@@ -12,7 +12,6 @@ body{
   background:#f2f2f2;
 }
 
-/* ===== 로그인 화면 ===== */
 #loginScreen{
   position:fixed;
   top:0; left:0;
@@ -59,7 +58,6 @@ body{
   box-shadow:0 2px 0 #cc7a00;
 }
 
-/* ===== 관리자 화면 ===== */
 #adminPanel{
   position:fixed;
   top:0; right:0;
@@ -87,7 +85,6 @@ body{
   padding:5px;
 }
 
-/* ===== 게임 화면 ===== */
 #gameArea{
   position:relative;
   width:100vw;
@@ -95,7 +92,6 @@ body{
   display:none;
 }
 
-/* ===== 색상 구역 ===== */
 .dropZone{
   width:180px;
   height:180px;
@@ -109,7 +105,6 @@ body{
 #greenZone{background:#83B748;bottom:20px;left:20px;}
 #blackZone{background:#484848;bottom:20px;right:20px;}
 
-/* ===== 택배 상자 ===== */
 .box{
   width:110px;
   height:110px;
@@ -141,7 +136,6 @@ body{
   border-radius:5px 5px 0 0;
 }
 
-/* 세로 리본 */
 .ribbon{
   position:absolute;
   height:0%;
@@ -157,7 +151,6 @@ body{
   to{height:100%;}
 }
 
-/* 확인 버튼 */
 #confirmBtn{
   position:absolute;
   bottom:25px;
@@ -192,7 +185,6 @@ body{
   box-shadow:0 2px 0 #0f9f6e;
 }
 
-/* ===== 코인 ===== */
 #coin{
   position:absolute;
   top:50%;
@@ -249,7 +241,6 @@ body{
   }
 }
 
-/* ===== 엔딩 화면 ===== */
 #endingScreen{
   position:fixed;
   top:0;
@@ -271,20 +262,17 @@ body{
 
 <body>
 
-<!-- 로그인 화면 -->
 <div id="loginScreen">
   <input type="text" id="userName" placeholder="이름을 입력하세요">
   <button id="loginBtn">게임 시작</button>
 </div>
 
-<!-- 관리자 화면 -->
 <div id="adminPanel">
   <h2>관리자 패널</h2>
   <div id="records"></div>
   <button id="clearRecordsBtn">전체 삭제</button>
 </div>
 
-<!-- 게임 화면 -->
 <div id="gameArea">
   <div id="redZone" class="dropZone"></div>
   <div id="blueZone" class="dropZone"></div>
@@ -307,7 +295,6 @@ body{
 </div>
 
 <script>
-/* ===== 로그인 기능 ===== */
 const loginScreen = document.getElementById("loginScreen");
 const loginBtn = document.getElementById("loginBtn");
 const userNameInput = document.getElementById("userName");
@@ -321,7 +308,6 @@ let isAdmin = false;
 let gameEnded=false;
 let coinCollected=false;
 
-/* 로그인 이벤트 */
 loginBtn.addEventListener("click", () => {
     const name = userNameInput.value.trim();
     if (!name) {
@@ -342,11 +328,9 @@ loginBtn.addEventListener("click", () => {
     }
 });
 
-/* ===== 관리자 기록 함수 ===== */
 function saveRecord(user, result, coin=false){
     let records = JSON.parse(localStorage.getItem("records") || "[]");
 
-    // 이미 기록이 있으면 업데이트 (코인 획득 포함)
     const existingIndex = records.findIndex(r => r.user===user && r.time===currentTime);
     if(existingIndex>=0){
         records[existingIndex].coin = coin;
@@ -374,7 +358,6 @@ clearBtn.addEventListener("click", () => {
     }
 });
 
-/* ===== 게임 코드 ===== */
 const zones={
   "#FF4B4B": redZone,
   "#4B8DFE": blueZone,
@@ -507,7 +490,6 @@ confirmBtn.addEventListener("click",()=>{
   }
 });
 
-/* 코인 클릭 */
 coin.addEventListener("click",()=>{
   if(coinCollected) return; // 중복 저장 방지
   coinCollected=true;
@@ -524,7 +506,6 @@ coin.addEventListener("click",()=>{
   },800);
 });
 
-/* 랜덤 상자 생성 */
 let ids=[1,2,3,4];
 ids.sort(()=>Math.random()-0.5);
 ids.forEach(id=>createBox(id));
